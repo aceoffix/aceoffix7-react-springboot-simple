@@ -17,7 +17,7 @@ The Aceoffix7-React-SpringBoot-Simple project demonstrates how to use the Aceoff
 Use "git clone" or directly download the project's compressed package to your local machine and then decompress it.
 
 - **front - end**
-  - Open the `aceoffix7-react-simple-front` folder with a development tool like Visual Studio Code. Navigate into this folder and then use the `npm start` command to start and run the project.
+  - Open the `aceoffix7-react-simple-front` folder with a development tool like Visual Studio Code. Navigate into this folder and then use the `npm run start` command to start and run the project.
 
 - **back- end**
 
