@@ -50,7 +50,7 @@ Use "git clone" or directly download the project's compressed package to your lo
 
   - Add Aceoffix related configurations to the global interceptor in your project.
 
-    ```react
+    ```apl
     import axios from "axios";
     import { AceBrowser } from "js-aceoffix";
     
