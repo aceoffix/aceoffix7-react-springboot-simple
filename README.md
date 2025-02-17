@@ -1,6 +1,6 @@
 # Aceoffix7-React-SpringBoot-Simple
 
-**Latest Version：7.0.0.2**
+**Latest Version：7.0.1.1**
 
 ### 1. Introduction
 
@@ -25,7 +25,7 @@ Use "git clone" or directly download the project's compressed package to your lo
 
   - Download the Aceoffix client program.
   
-    [aceclientsetup_7.0.0.2.exe](https://github.com/aceoffix/aceoffix7-client/releases/download/v7.0.0.2/aceclientsetup_7.0.0.2.exe)
+    [aceclientsetup_7.0.1.1.exe](https://github.com/aceoffix/aceoffix7-client/releases/download/v7.0.1.1/aceclientsetup_7.0.1.1.exe)
   
   - Copy the Aceoffix client program downloaded in the previous step to the newly created Aceoffix folder.
   
@@ -215,7 +215,7 @@ Use "git clone" or directly download the project's compressed package to your lo
 
   - Download the Aceoffix client program.
 
-    [aceclientsetup_7.0.0.2.exe](https://github.com/aceoffix/aceoffix7-client/releases/download/v7.0.0.2/aceclientsetup_7.0.0.2.exe)
+    [aceclientsetup_7.0.1.1.exe](https://github.com/aceoffix/aceoffix7-client/releases/download/v7.0.1.1/aceclientsetup_7.0.1.1.exe)
 
   - Copy the Aceoffix client program downloaded in the previous step to the newly created Aceoffix folder.
 
@@ -228,7 +228,7 @@ Use "git clone" or directly download the project's compressed package to your lo
     <dependency>
         <groupId>com.acesoftcorp</groupId>
         <artifactId>aceoffix</artifactId>
-        <version>7.0.0.2-javax</version>
+        <version>7.0.1.1-javax</version>
     </dependency>
     ```
 
@@ -238,7 +238,7 @@ Use "git clone" or directly download the project's compressed package to your lo
     <dependency>
         <groupId>com.acesoftcorp</groupId>
         <artifactId>aceoffix</artifactId>
-        <version>7.0.0.2</version>
+        <version>7.0.1.1</version>
     </dependency>
     ```
 
