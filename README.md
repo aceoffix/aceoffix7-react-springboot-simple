@@ -44,7 +44,7 @@ Use "git clone" or directly download the project's compressed package to your lo
 
 - **front - end**
 
-  - Install `js-aceoffix` in your project via the following command：**npm install js-aceoffix@7.0.0 --save-exact**
+  - Install `js-aceoffix` in your project via the following command：**npm install js-aceoffix@7.0.1 --save-exact**
 
     > Note: Please ensure that the version number of the installed js-pageoffice library matches the first three digits of the version number specified in the PageOffice JAR package referenced in the backend project’s pom.xml file.
 
