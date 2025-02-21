@@ -46,7 +46,7 @@ Use "git clone" or directly download the project's compressed package to your lo
 
   - Install `js-aceoffix` in your project via the following command：**npm install js-aceoffix@7.0.1 --save-exact**
 
-    > Note: Please ensure that the version number of the installed js-pageoffice library matches the first three digits of the version number specified in the PageOffice JAR package referenced in the backend project’s pom.xml file.
+    > Note: Please ensure that the version number of the installed js-aceoffix library matches the first three digits of the version number specified in the Aceoffix JAR package referenced in the backend project’s pom.xml file.
 
   - Add Aceoffix related configurations to the global interceptor in your project.
 
@@ -241,6 +241,40 @@ Use "git clone" or directly download the project's compressed package to your lo
         <version>7.0.1.1</version>
     </dependency>
     ```
+
+  - Add a `@Bean` configuration to the `Application` class, which is the startup class of your project. This is a necessary configuration for the Aceoffix server side. The code is as follows:
+
+    ```java
+    @Bean
+    public ServletRegistrationBean aceoffixRegistrationBean() {
+        com.acesoftcorp.aceoffix.aceserver.Server aceserver = new com.acesoftcorp.aceoffix.aceserver.Server();
+        //Set the directory where the license.lic file is stored after successful registration of Aceoffix.
+        aceserver.setSysPath(aceSysPath);
+        ServletRegistrationBean srb = new ServletRegistrationBean(aceserver);
+        srb.addUrlMappings("/server.ace");
+        srb.addUrlMappings("/aceclient");
+        srb.addUrlMappings("/aceoffix.js");
+        return srb;
+    }
+    ```
+
+    > [!NOTE]
+    >
+    > In actual development, in your backend project, you must exclude the Aceoffix-related configuration requests from the authorization and authentication verification frameworks such as Spring Security or Shiro in the backend interceptor. For example:
+    >
+    > - SpringSecurity
+    >
+    > ```java
+    > .antMatchers("/server.ace","/aceclient","/aceoffix.js").permitAll()
+    > ```
+    >
+    > - Shiro
+    >
+    > ```java
+    > filterChainDefinitionMap.put("/server.ace", "anon");
+    > filterChainDefinitionMap.put("/aceclient", "anon");
+    > filterChainDefinitionMap.put("/aceoffix.js", "anon");
+    > ```
 
   - Then, write the following server code in "controllers/DocumentController.java".
 
