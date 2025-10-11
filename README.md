@@ -1,6 +1,6 @@
 # Aceoffix7-React-SpringBoot-Simple
 
-**Latest Version：7.1.1.2**
+**Latest Version：7.2.1.1**
 
 ### 1. Introduction
 
@@ -228,7 +228,7 @@ Use "git clone" or directly download the project's compressed package to your lo
     <dependency>
         <groupId>com.acesoftcorp</groupId>
         <artifactId>aceoffix</artifactId>
-        <version>7.1.1.2-javax</version>
+        <version>7.2.1.1-javax</version>
     </dependency>
     ```
 
@@ -238,7 +238,7 @@ Use "git clone" or directly download the project's compressed package to your lo
     <dependency>
         <groupId>com.acesoftcorp</groupId>
         <artifactId>aceoffix</artifactId>
-        <version>7.1.1.2</version>
+        <version>7.2.1.1</version>
     </dependency>
     ```
 
