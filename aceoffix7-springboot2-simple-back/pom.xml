@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.acesoftcorp</groupId>
             <artifactId>aceoffix</artifactId>
-            <version>7.1.1.2-javax</version>
+            <version>7.2.2.1-javax</version>
         </dependency>
     </dependencies>
     <build>
