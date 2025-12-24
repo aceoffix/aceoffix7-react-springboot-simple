@@ -44,7 +44,7 @@ Use "git clone" or directly download the project's compressed package to your lo
 
 - **front - end**
 
-  - Install `js-aceoffix` in your project via the following command：**npm install js-aceoffix@7.0.1 --save-exact**
+  - Install `js-aceoffix` in your project via the following command：**npm install js-aceoffix@7.3.1 --save-exact**
 
     > Note: Please ensure that the version number of the installed js-aceoffix library matches the first three digits of the version number specified in the Aceoffix JAR package referenced in the backend project’s pom.xml file.
 
@@ -289,8 +289,8 @@ Use "git clone" or directly download the project's compressed package to your lo
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-websocket</artifactId>
       </dependency>
-      ```
-      
+    ```
+    
   - Add a `@Bean` configuration to the `Application` class, which is the startup class of your project. This is a necessary configuration for the Aceoffix server side. The code is as follows:
 
     ```java
@@ -317,7 +317,6 @@ Use "git clone" or directly download the project's compressed package to your lo
         );
         return exporter;
     }
-    
     
     /**
      *Aceoffix acewserver configure cross-domain. Required for Aceoffix v7.3.1.1 and above.
@@ -346,7 +345,7 @@ Use "git clone" or directly download the project's compressed package to your lo
                 servletContext.setInitParameter("acewserver-allowedOrigins", "*");
     }
     ```
-
+    
     > [!NOTE]
     >
     > In actual development, in your backend project, you must exclude the Aceoffix-related configuration requests from the authorization and authentication verification frameworks such as Spring Security or Shiro in the backend interceptor. For example:
@@ -365,9 +364,9 @@ Use "git clone" or directly download the project's compressed package to your lo
     > filterChainDefinitionMap.put("/aceclient", "anon");
     > filterChainDefinitionMap.put("/aceoffix.js", "anon");
     > ```
-
+    
   - Then, write the following server code in "controllers/DocumentController.java".
-
+  
     ```java
     @RequestMapping(value = "/openFile", method = org.springframework.web.bind.annotation.RequestMethod.POST)
     public String openFile(HttpServletRequest request, @RequestBody Map<String, Object> params) {
@@ -377,9 +376,9 @@ Use "git clone" or directly download the project's compressed package to your lo
         return aceCtrl.getHtml();
     }
     ```
-
+  
   - Add a new function called Save in  "controllers/DocumentController.java"  if your user wants to save document.
-
+  
     ```java
     @RequestMapping(value = "/saveFile",method = org.springframework.web.bind.annotation.RequestMethod.POST)
     public void saveFile(HttpServletRequest request, HttpServletResponse response,@RequestParam String file_name) {
@@ -388,6 +387,6 @@ Use "git clone" or directly download the project's compressed package to your lo
         fs.close();
     }
     ```
-
+  
 - Run the front - end project and the back - end project respectively. Then, access the front - end React project in the browser's address bar. Follow the prompts to install the Aceoffix V7 client. Once the registration dialog box appears, enter the license key of Aceoffix V7 to complete the registration.
 
