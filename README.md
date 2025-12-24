@@ -1,6 +1,6 @@
 # Aceoffix7-React-SpringBoot-Simple
 
-**Latest Version：7.2.2.1**
+**Latest Version：7.3.1.1**
 
 ### 1. Introduction
 
@@ -48,6 +48,45 @@ Use "git clone" or directly download the project's compressed package to your lo
 
     > Note: Please ensure that the version number of the installed js-aceoffix library matches the first three digits of the version number specified in the Aceoffix JAR package referenced in the backend project’s pom.xml file.
 
+  - To configure the acewserver proxy in your current project's `setupProxy.js` file.
+
+    ```react
+    module.exports = function (app) {
+    /**
+     *New: acewserver proxy configuration (It is recommended to copy this configuration block and modify the corresponding parts as per the instructions)
+     *acewserver service proxy configuration (Key Notes):
+     *This rule must be placed BEFORE the existing "/dev-api" rule to ensure priority matching.
+     *Compared to the original configuration, only WebSocket support (ws and module.exports) has been added.
+     */
+      const wsProxyFilter = function (pathname, req) {
+        const match = pathname.match("^/dev-api/acewserver");
+        if (match) {
+          // console.log('Proxy Filter matched:', pathname);
+        }
+        return match;
+      };
+      app.use(
+        createProxyMiddleware(wsProxyFilter, {
+          target: "http://localhost:8011",
+          changeOrigin: true,
+          pathRewrite: { "^/dev-api": "" },
+          ws: true,
+        })
+      );
+      // Original project configuration (remains unchanged)
+      app.use(
+        "/dev-api",
+        createProxyMiddleware({
+          target: "http://localhost:8011",
+          changeOrigin: true,
+          pathRewrite: {
+            "^/dev-api": "",
+          },
+        })
+      );
+    };
+    ```
+    
   - Add Aceoffix related configurations to the global interceptor in your project.
 
     ```apl
@@ -228,20 +267,30 @@ Use "git clone" or directly download the project's compressed package to your lo
     <dependency>
         <groupId>com.acesoftcorp</groupId>
         <artifactId>aceoffix</artifactId>
-        <version>7.2.2.1-javax</version>
+        <version>7.3.1.1-javax</version>
+    </dependency>
+    <!-- Required. WebSocket - required for Aceoffix v7.3.1.1 and above -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
     ```
-
+    
     If you are using SpringBoot 3, please use the following configuration code.
-
+    
     ```xml
     <dependency>
-        <groupId>com.acesoftcorp</groupId>
-        <artifactId>aceoffix</artifactId>
-        <version>7.2.2.1</version>
-    </dependency>
-    ```
-
+          <groupId>com.acesoftcorp</groupId>
+          <artifactId>aceoffix</artifactId>
+          <version>7.3.1.1</version>
+      </dependency>
+      <!-- Required. WebSocket - required for Aceoffix v7.3.1.1 and above -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-websocket</artifactId>
+      </dependency>
+      ```
+      
   - Add a `@Bean` configuration to the `Application` class, which is the startup class of your project. This is a necessary configuration for the Aceoffix server side. The code is as follows:
 
     ```java
@@ -256,6 +305,46 @@ Use "git clone" or directly download the project's compressed package to your lo
         srb.addUrlMappings("/aceoffix.js");
         return srb;
     }
+    /**
+     *Enable WebSocket configuration for Aceoffix. Required for Aceoffix v7.3.1.1 and above.
+     *@return
+     */
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        ServerEndpointExporter exporter = new ServerEndpointExporter();
+        exporter.setAnnotatedEndpointClasses(
+                com.acesoftcorp.aceoffix.aceserver.WServer.class
+        );
+        return exporter;
+    }
+    
+    
+    /**
+     *Aceoffix acewserver configure cross-domain. Required for Aceoffix v7.3.1.1 and above.
+     *
+     * @return
+     */
+    @Bean
+    public ServletListenerRegistrationBean acewContextListener() {
+        return new ServletListenerRegistrationBean<>(new AceWContextListener());
+    }
+    
+    @Bean
+    public ServletContextInitializer aceoffixContextParams() {
+        /*
+         * Aceoffix acewserver Cross-Domain Security Configuration:
+         * 1. Using "*" is not recommended in production. It is advisable to explicitly specify allowed domain(s)/IP(s).
+         * 2. Format: Multiple addresses should be separated by commas, e.g., "domain1,domain2,ip".
+         *    Note: Local development environment addresses (localhost, 127.0.0.1) must also be included in this configuration.
+         * 3. Examples:
+         *    - For Frontend/Backend Separation: "frontend-domain-address, frontend-ip-address, backend-address"
+         *      (e.g., "ui.example.com,192.168.1.1,localhost")
+         *    - For Monolithic Multi-Entry Applications: "domain, ip"
+         *      (e.g., "www.oa.com,192.168.1.100")
+         */
+        return servletContext ->
+                servletContext.setInitParameter("acewserver-allowedOrigins", "*");
+    }
     ```
 
     > [!NOTE]
@@ -265,13 +354,14 @@ Use "git clone" or directly download the project's compressed package to your lo
     > - SpringSecurity
     >
     > ```java
-    > .antMatchers("/server.ace","/aceclient","/aceoffix.js").permitAll()
+    > .antMatchers("/server.ace","acewserver","/aceclient","/aceoffix.js").permitAll()
     > ```
     >
     > - Shiro
     >
     > ```java
     > filterChainDefinitionMap.put("/server.ace", "anon");
+    > filterChainDefinitionMap.put("/acewserver", "anon");
     > filterChainDefinitionMap.put("/aceclient", "anon");
     > filterChainDefinitionMap.put("/aceoffix.js", "anon");
     > ```
