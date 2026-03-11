@@ -1,6 +1,6 @@
 # Aceoffix7-React-SpringBoot-Simple
 
-**Latest Version：7.3.1.1**
+**Latest Version：7.3.1.2**
 
 ### 1. Introduction
 
@@ -59,7 +59,7 @@ Use "git clone" or directly download the project's compressed package to your lo
      *Compared to the original configuration, only WebSocket support (ws and module.exports) has been added.
      */
       const wsProxyFilter = function (pathname, req) {
-        const match = pathname.match("^/dev-api/acewserver");
+        const match = pathname.match("^/dev-api");
         if (match) {
           // console.log('Proxy Filter matched:', pathname);
         }
@@ -73,22 +73,11 @@ Use "git clone" or directly download the project's compressed package to your lo
           ws: true,
         })
       );
-      // Original project configuration (remains unchanged)
-      app.use(
-        "/dev-api",
-        createProxyMiddleware({
-          target: "http://localhost:8011",
-          changeOrigin: true,
-          pathRewrite: {
-            "^/dev-api": "",
-          },
-        })
-      );
     };
     ```
     
   - Add Aceoffix related configurations to the global interceptor in your project.
-
+  
     ```apl
     import axios from "axios";
     import { AceBrowser } from "js-aceoffix";
@@ -139,9 +128,9 @@ Use "git clone" or directly download the project's compressed package to your lo
     
     export default service;
     ```
-
+  
   - Trigger the pop - up of an Acebrowser window for editing Office documents by clicking on a hyperlink or a button. Let's assume that clicking a link in `App.js` pops up the Acebrowser, and the page containing the Aceoffix control is `ShowDoc.js`. (for example, `App.js`, which is referred to as the parent page in Aceoffix). When the hyperlink is clicked, call the `openWindow` method of the `Acebrowser` object to pop up an Aceoffix browser (`Acebrowser`) window to access `showDoc.js` and open the file online. The code is as follows.
-
+  
     ```jsx
     const openWordFile = () => {
         try {
@@ -154,15 +143,15 @@ Use "git clone" or directly download the project's compressed package to your lo
     };
     
     ```
-
+  
   - Configure the access route for `showDoc.js`.
-
+  
     ```react
       <Route path="/showDoc" element={<ShowDoc />} />
     ```
-
+  
   -  Then we'll edit `showDoc.js`.
-
+  
     ```jsx
     /* eslint-disable no-undef */
     import React, { useState, useEffect, useRef} from 'react';
@@ -249,7 +238,7 @@ Use "git clone" or directly download the project's compressed package to your lo
     
     export default ShowDoc
     ```
-
+  
 - back- end
 
   - Download the Aceoffix client program.
@@ -267,9 +256,9 @@ Use "git clone" or directly download the project's compressed package to your lo
     <dependency>
         <groupId>com.acesoftcorp</groupId>
         <artifactId>aceoffix</artifactId>
-        <version>7.3.1.1-javax</version>
+        <version>7.3.1.2-javax</version>
     </dependency>
-    <!-- Required. WebSocket - required for Aceoffix v7.3.1.1 and above -->
+    <!-- Required. WebSocket - required for Aceoffix v7.3.1.2 and above -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-websocket</artifactId>
@@ -282,9 +271,9 @@ Use "git clone" or directly download the project's compressed package to your lo
     <dependency>
           <groupId>com.acesoftcorp</groupId>
           <artifactId>aceoffix</artifactId>
-          <version>7.3.1.1</version>
+          <version>7.3.1.2</version>
       </dependency>
-      <!-- Required. WebSocket - required for Aceoffix v7.3.1.1 and above -->
+      <!-- Required. WebSocket - required for Aceoffix v7.3.1.2 and above -->
       <dependency>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-websocket</artifactId>
@@ -306,7 +295,7 @@ Use "git clone" or directly download the project's compressed package to your lo
         return srb;
     }
     /**
-     *Enable WebSocket configuration for Aceoffix. Required for Aceoffix v7.3.1.1 and above.
+     *Enable WebSocket configuration for Aceoffix. Required for Aceoffix v7.3.1.2 and above.
      *@return
      */
     @Bean
@@ -319,7 +308,7 @@ Use "git clone" or directly download the project's compressed package to your lo
     }
     
     /**
-     *Aceoffix acewserver configure cross-domain. Required for Aceoffix v7.3.1.1 and above.
+     *Aceoffix acewserver configure cross-domain. Required for Aceoffix v7.3.1.2 and above.
      *
      * @return
      */

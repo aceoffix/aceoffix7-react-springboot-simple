@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.acesoftcorp</groupId>
             <artifactId>aceoffix</artifactId>
-            <version>7.3.1.1-javax</version>
+            <version>7.3.1.2-javax</version>
         </dependency>
         <!-- Required. WebSocket - required for Aceoffix v7.3.1.1 and above -->
         <dependency>

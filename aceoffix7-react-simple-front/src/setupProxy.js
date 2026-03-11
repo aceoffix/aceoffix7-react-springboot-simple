@@ -8,7 +8,7 @@ module.exports = function (app) {
  *Compared to the original configuration, only WebSocket support (ws and module.exports) has been added.
  */
   const wsProxyFilter = function (pathname, req) {
-    const match = pathname.match("^/dev-api/acewserver");
+    const match = pathname.match("^/dev-api");
     if (match) {
       // console.log('Proxy Filter matched:', pathname);
     }
@@ -20,17 +20,6 @@ module.exports = function (app) {
       changeOrigin: true,
       pathRewrite: { "^/dev-api": "" },
       ws: true,
-    })
-  );
-  // Original project configuration (remains unchanged)
-  app.use(
-    "/dev-api",
-    createProxyMiddleware({
-      target: "http://localhost:8011",
-      changeOrigin: true,
-      pathRewrite: {
-        "^/dev-api": "",
-      },
     })
   );
 };
